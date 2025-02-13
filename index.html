@@ -37,14 +37,12 @@
             cursor: pointer;
             border-radius: 5px;
             transition: transform 0.3s, background 0.3s;
-            position: relative;
         }
         .yes {
             background-color: lightgreen;
         }
         .no {
             background-color: lightcoral;
-            position: absolute;
         }
         button:hover {
             transform: scale(1.1);
@@ -77,45 +75,39 @@
     <script>
         let noCount = 0;
         const messages = [
-            "Our pair will be so cute, [name]! 💖",
-            "Are you sure, [name]? 😢",
-            "Think again, [name]! 😜",
-            "You'll regret this, [name]! 😏",
-            "Give me a chance, [name]! 🥺",
-            "Just say yes already, [name]! 🤭",
-            "You're breaking my heart, [name]! 💔",
-            "I have chocolates waiting for you, [name]! 🍫",
-            "You’re my perfect match, [name]! 🔥",
-            "Even Cupid approves of us, [name]! 💘",
-            "You complete my world, [name]! 🌎❤️",
-            "Saying no is not an option, [name]! 😆",
-            "Love is knocking, [name]! Open the door! 🚪💞",
-            "Be mine, [name], or I'll cry forever! 😭💕"
+            "Are you sure? 😢",
+            "Think again! 😜",
+            "You'll regret this! 😏",
+            "We had a great conversation before... 💬",
+            "Have you forgotten our memories? 😞",
+            "Remember the time we laughed together? 😂",
+            "Don't break my heart! 💔",
+            "I have chocolates for you! 🍫",
+            "Who will make me smile now? 🥺",
+            "You’re my perfect match! 🔥",
+            "Even Cupid approves of us! 💘",
+            "Be mine, or I'll cry forever! 😭💕",
+            "I promise to keep you happy! 🤗",
+            "Let’s create more beautiful memories! 📸",
+            "How can you say no after all this? 😖",
+            "Okay... last chance! 😣"
         ];
         
-        const urlParams = new URLSearchParams(window.location.search);
-        const userName = urlParams.get("name") || "cutie";
-        const noButton = document.querySelector(".no");
-        
         function handleNo() {
+            if (noCount < messages.length) {
+                document.querySelector(".no").innerText = messages[noCount];
+            } else {
+                document.querySelector(".no").innerText = "Just say YES! 🤧";
+            }
             noCount++;
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)].replace("[name]", userName);
-            noButton.innerText = randomMessage;
-            moveNoButton();
-        }
-        
-        function moveNoButton() {
-            const x = Math.random() * 200 - 100;
-            const y = Math.random() * 200 - 100;
-            noButton.style.transform = `translate(${x}px, ${y}px)`;
         }
         
         function handleYes() {
             if (noCount === 0) {
                 document.querySelector(".gift-box").style.display = "block";
             } else {
-                let suffix = noCount === 1 ? "st" : noCount === 2 ? "nd" : noCount === 3 ? "rd" : "th";
-                document.getElementById("output").innerHTML = `Am I your ${noCount}${suffix} option? 😠<br> I don't want you as my Valentine!`;
+                let suffix = noCount === 1 ? "nd" : noCount === 2 ? "rd" : "th";
+                document.getElementById("output").innerHTML = `Am I your ${noCount + 1}${suffix} option? 😠<br> I don't want you as my Valentine!`;
             }
         }
         
