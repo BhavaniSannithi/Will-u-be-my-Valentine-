@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine Proposal</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('https://wallpapers.com/images/featured/anime-couple-xyev5mudcvnzo825.jpg') no-repeat center center/cover;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+            position: relative;
+        }
+        img {
+            width: 120px;
+            transition: transform 0.3s;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            margin: 8px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: transform 0.3s, background 0.3s;
+            position: relative;
+        }
+        .yes {
+            background-color: lightgreen;
+        }
+        .no {
+            background-color: lightcoral;
+            position: absolute;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .gift-box {
+            display: none;
+            cursor: pointer;
+            font-size: 60px;
+        }
+        .message {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="question">Will you be my Valentine?</h2>
+        <img src="https://i.pinimg.com/736x/c3/eb/1e/c3eb1e45a80ce92a94590fc16e73da4f.jpg" alt="Bubu Dudu" />
+        <br>
+        <button class="yes" onclick="handleYes()">Yes</button>
+        <button class="no" onclick="handleNo()">No</button>
+        <div class="gift-box" onclick="showMessage()">
+            🎁
+        </div>
+        <p class="message" id="output"></p>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const messages = [
+            "Our pair will be so cute, [name]! 💖",
+            "Are you sure, [name]? 😢",
+            "Think again, [name]! 😜",
+            "You'll regret this, [name]! 😏",
+            "Give me a chance, [name]! 🥺",
+            "Just say yes already, [name]! 🤭",
+            "You're breaking my heart, [name]! 💔",
+            "I have chocolates waiting for you, [name]! 🍫",
+            "You’re my perfect match, [name]! 🔥",
+            "Even Cupid approves of us, [name]! 💘",
+            "You complete my world, [name]! 🌎❤️",
+            "Saying no is not an option, [name]! 😆",
+            "Love is knocking, [name]! Open the door! 🚪💞",
+            "Be mine, [name], or I'll cry forever! 😭💕"
+        ];
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const userName = urlParams.get("name") || "cutie";
+        const noButton = document.querySelector(".no");
+        
+        function handleNo() {
+            noCount++;
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)].replace("[name]", userName);
+            noButton.innerText = randomMessage;
+            moveNoButton();
+        }
+        
+        function moveNoButton() {
+            const x = Math.random() * 200 - 100;
+            const y = Math.random() * 200 - 100;
+            noButton.style.transform = `translate(${x}px, ${y}px)`;
+        }
+        
+        function handleYes() {
+            if (noCount === 0) {
+                document.querySelector(".gift-box").style.display = "block";
+            } else {
+                let suffix = noCount === 1 ? "st" : noCount === 2 ? "nd" : noCount === 3 ? "rd" : "th";
+                document.getElementById("output").innerHTML = `Am I your ${noCount}${suffix} option? 😠<br> I don't want you as my Valentine!`;
+            }
+        }
+        
+        function showMessage() {
+            document.getElementById("output").innerHTML = `Yay! You made the best choice! 💕<br><img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNMTfD0KwXe3Sh57ZQl9OsSVV6SS7zaJay4g&s' width='180px'/>`;
+        }
+    </script>
+</body>
+</html>
